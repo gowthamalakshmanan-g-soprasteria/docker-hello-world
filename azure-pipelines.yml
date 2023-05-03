@@ -35,3 +35,10 @@ stages:
                 echo "Docker PUSH is not successful"
                 exit 1
            fi          
+
+    - task: PublishPipelineArtifact@1
+      displayName: "Publish"
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/deployment-playbook.yaml'
+        artifact: 'dev-playbook'
+        publishLocation: 'pipeline'           
