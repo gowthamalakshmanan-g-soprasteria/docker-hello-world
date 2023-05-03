@@ -14,23 +14,23 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
+  - stage: build
     displayName: Build
+    jobs:
+      - job: build
+        displayName: Build
+        steps:
+          - task: Bash@3
+            displayName: "Build and Push Docker Image"
+            inputs:
+              targetType: "inline"
+              script: |
+                docker login slaztest01acr.azurecr.io -u $(uid) -p $(pwd)
+                docker build -t slaztest01acr.azurecr.io/slaztest01acr:latest $(Build.SourcesDirectory)/Dockerfile
+                docker push slaztest01acr.azurecr.io/slaztest01acr:latest
+                if [ $? -ne 0 ]
+                then
+                  echo "Docker PUSH is not successful"
+                  exit 1
+                fi
 
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-- task: Docker@2
-  inputs:
-    containerRegistry: 'slaztest01acr.azurecr.io'
-    repository: 'slaztest01acr'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
