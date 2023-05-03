@@ -27,8 +27,8 @@ stages:
       inputs:
         targetType: "inline"
         script: |
-           docker login slaztest01acr.azurecr.io -u $(uid) -p $(pwd)  $(Build.SourcesDirectory)/Dockerfile
-           docker build -t slaztest01acr.azurecr.io/docker-helloworld:latest 
+           docker login slaztest01acr.azurecr.io -u $(uid) -p $(pwd) 
+           docker build -t slaztest01acr.azurecr.io/docker-helloworld:latest  $(Build.SourcesDirectory)/Dockerfile
            docker push slaztest01acr.azurecr.io/docker-helloworld:latest
            if [ $? -ne 0 ]
              then
