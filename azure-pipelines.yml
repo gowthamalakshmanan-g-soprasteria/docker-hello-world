@@ -21,19 +21,14 @@ stages:
     displayName: Build
 
     steps:
-    - task: Docker@2
-      inputs:
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
-        buildContext: 'slaztest01acr.azurecr.io/docker-helloworld'
-        tags: 'latest'
         
     - task: Bash@3
       displayName: "Build and Push Docker Image"
       inputs:
         targetType: "inline"
         script: |
-           docker login slaztest01acr.azurecr.io -u $(uid) -p $(pwd)
+           docker login slaztest01acr.azurecr.io -u $(uid) -p $(pwd)  $(Build.SourcesDirectory)/Dockerfile
+           docker build -t slaztest01acr.azurecr.io/docker-helloworld:latest 
            docker push slaztest01acr.azurecr.io/docker-helloworld:latest
            if [ $? -ne 0 ]
              then
