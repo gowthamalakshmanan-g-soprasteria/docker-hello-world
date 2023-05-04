@@ -1,5 +1,4 @@
 - hosts: 20.90.81.130
-  connection: local
   tasks:
     - name: deploy  docker container
       docker_container:
