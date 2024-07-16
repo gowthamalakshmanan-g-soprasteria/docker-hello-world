@@ -27,9 +27,9 @@ stages:
       inputs:
         targetType: "inline"
         script: |
-           docker login slaztest01acr.azurecr.io -u $(uid) -p $(pwd) 
-           docker build -t slaztest01acr.azurecr.io/docker-helloworld:latest  $(Build.SourcesDirectory)
-           docker push slaztest01acr.azurecr.io/docker-helloworld:latest
+           docker login slaztestacr.azurecr.io -u $(uid) -p $(pwd) 
+           docker build -t slaztestacr.azurecr.io/docker-helloworld:latest  $(Build.SourcesDirectory)
+           docker push slaztestacr.azurecr.io/docker-helloworld:latest
            if [ $? -ne 0 ]
              then
                 echo "Docker PUSH is not successful"
