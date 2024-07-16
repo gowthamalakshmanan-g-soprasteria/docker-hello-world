@@ -2,7 +2,7 @@
   tasks:
     - name: deploy  docker container
       docker_container:
-        image: slaztest01acr.azurecr.io/docker-helloworld:latest
+        image: slaztestacr.azurecr.io/docker-helloworld:latest
         name: docker-helloworld
         state: started
         auto_remove: true
